@@ -1,0 +1,110 @@
+﻿@page
+@model MyRpStudent.IndexModel
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+
+@{
+    ViewData["Title"] = "学生列表";
+}
+<link href="~/css/PagedList.css" rel="stylesheet" />
+
+<h1>学生列表</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<form action="/Students/Index">
+    <p>
+        搜索姓名：<input type="text" name="searchString" value="@Model.CurrentFilter" />
+        年级：
+        <select asp-for="EnrollmentYear" asp-items="Model.EnrollmentYearList">
+            <option value="">所有年级</option>
+        </select>
+        <select asp-for="StudentClass" asp-items="Model.StudentClassList">
+            <option value="">所有班级</option>
+        </select>
+        <input type="submit" value="Search" class="btn btn-primary" /> |
+        <a asp-page="./Index">全部列表</a>
+        | 搜索结果：<span class="text-danger">@Model.NumberOfStudents</span>
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].序号)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].入学年份)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].班级)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].姓名)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].性别)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].学籍号)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student[0].备注)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Student)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.序号)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.入学年份)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.班级)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.姓名)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.性别)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.学籍号)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.备注)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="text-center">
+    @Html.PagedListPager(Model.Student, pg =>
+        Url.Page("Index", new
+        {
+            pg,
+            searchString = @Model.CurrentFilter,
+            StudentClass = @Model.StudentClass,
+            EnrollmentYear = @Model.EnrollmentYear
+        }),
+            new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+            {
+                LinkToFirstPageFormat = "首页",
+                LinkToNextPageFormat = "下一页",
+                LinkToPreviousPageFormat = "上一页",
+                LinkToLastPageFormat = "末页",
+                MaximumPageNumbersToDisplay = 10,
+                DisplayItemSliceAndTotal = false
+            })
+</div>

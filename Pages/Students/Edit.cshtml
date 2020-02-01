@@ -1,0 +1,65 @@
+﻿@page
+@model MyRpStudent.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Student</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Student.Id" />
+            <div class="form-group">
+                <label asp-for="Student.序号" class="control-label"></label>
+                <input asp-for="Student.序号" class="form-control" />
+                <span asp-validation-for="Student.序号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.入学年份" class="control-label"></label>
+                <input asp-for="Student.入学年份" class="form-control" />
+                <span asp-validation-for="Student.入学年份" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.班级" class="control-label"></label>
+                <input asp-for="Student.班级" class="form-control" />
+                <span asp-validation-for="Student.班级" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.姓名" class="control-label"></label>
+                <input asp-for="Student.姓名" class="form-control" />
+                <span asp-validation-for="Student.姓名" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.性别" class="control-label"></label>
+                <input asp-for="Student.性别" class="form-control" />
+                <span asp-validation-for="Student.性别" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.学籍号" class="control-label"></label>
+                <input asp-for="Student.学籍号" class="form-control" />
+                <span asp-validation-for="Student.学籍号" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.备注" class="control-label"></label>
+                <input asp-for="Student.备注" class="form-control" />
+                <span asp-validation-for="Student.备注" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
